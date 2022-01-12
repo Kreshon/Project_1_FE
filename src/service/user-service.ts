@@ -8,6 +8,13 @@ class UserService {
         this.URI = 'http://localhost:4444/'
     }
 
+    login(loginPayload): Promise<User> {
+        return axios
+            .patch(this.URI + `login`, loginPayload)
+                .then(result => result.data)
+                    .catch(error => {console.log(error)});
+    }
+
     getAllUsers(): Promise<User[]> {
         return axios
             .get(this.URI + `users`)
@@ -18,6 +25,20 @@ class UserService {
     createUser(user: User): Promise<User> {
         return axios
             .post(this.URI + `users`, user)
+                .then(result => result.data)
+                    .catch(error => {console.log(error)});
+    }
+
+    getUserById(userId: string): Promise<User> {
+        return axios
+            .get(this.URI + `users/${userId}`)
+                .then(result => result.data)
+                    .catch(error => {console.log(error)});
+    }
+
+    updateUser(user: User): Promise<User> {
+        return axios
+            .put(this.URI + `users/:id`, user)
                 .then(result => result.data)
                     .catch(error => {console.log(error)});
     }
