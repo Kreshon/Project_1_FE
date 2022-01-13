@@ -1,10 +1,11 @@
 import React from 'react';
 import LoginComponent from './components/login-component';
+import RouteHandler from './router/route-handler';
 
 function App() {
-  return (
-    <LoginComponent/>
-  );
+  return (<>
+    <RouteHandler/>
+    </>);
 }
 
 export default App;

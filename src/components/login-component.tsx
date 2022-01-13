@@ -5,7 +5,7 @@ import userService from "../service/user-service";
 
 // To do
 // implement login func.
-// add session storage
+// add session storage-Done for user
 // redirect to a reimbursement pages, based on permission level
 // stretch goals, add link to register, file upload for reimb
 export default function LoginComponent() {
@@ -23,9 +23,10 @@ export default function LoginComponent() {
 
         const user = await userService.login(loginPayload);
 
+        // session storage typically sotres things as strings
         sessionStorage.setItem("username", user.username);
         sessionStorage.setItem("id", user.id);
-        sessionStorage.setItem("isEmployee",`${user.isManager}`);
+        sessionStorage.setItem("isManager",`${user.isManager}`);
 
     }
     
