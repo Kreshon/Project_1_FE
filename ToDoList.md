@@ -1,9 +1,20 @@
 Components
     - whatever ones I need still
-    - add reimbursements
-    - statistics
+    - complete reimbursements list
+    - complete statistics
 
-Setup
-    -store
-    -DB online, instead of local JSON
+Processes
+    - creating reimbursement
+    - approving or denying
 
+Redux toolkit
+    - ***SETUP THE STORE***
+
+react native/expo stuff
+    - dont forget the storage
+    - login
+    - reimbursment list
+    - approval/denial
+
+ngrok
+    - demo
