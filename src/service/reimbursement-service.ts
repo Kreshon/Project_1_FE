@@ -37,3 +37,6 @@ class ReimbursementService {
     }
 
 }
+
+const reimbursementService = new ReimbursementService();
+export default reimbursementService;

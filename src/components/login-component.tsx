@@ -1,7 +1,12 @@
 import axios from "axios";
+import { response } from "express";
 import React,{ useState , useEffect, useRef } from "react";
 import { User } from "../entities/user";
 import userService from "../service/user-service";
+import { getAllUsers } from "../store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { AppState } from "../store/store";
+
 
 // To do
 // implement login func.
@@ -21,9 +26,10 @@ export default function LoginComponent() {
             password: passwordInput.current.value
         }
 
+        console.log(loginPayload)
         const user = await userService.login(loginPayload);
 
-        // session storage typically sotres things as strings
+        // session storage typically stores things as strings
         sessionStorage.setItem("username", user.username);
         sessionStorage.setItem("id", user.id);
         sessionStorage.setItem("isManager",`${user.isManager}`);

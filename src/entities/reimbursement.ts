@@ -1,5 +1,7 @@
 
 export interface Reimbursement{
+    id: string;
+    employeeId: string;
     amount: number;
     status: string; // "0 status approved", "1 status denied", "2 status pending"
     commentEmployee: string; // allow comments on requests
