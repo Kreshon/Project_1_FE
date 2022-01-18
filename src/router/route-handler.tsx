@@ -9,6 +9,9 @@ import { getAllUsers } from '../store/actions';
 import { AppState } from '../store/store';
 import { getAllReimbursements } from '../store/actions';
 import reimbursementService from '../service/reimbursement-service';
+import DetailReimbursement from '../components/detail-reimbursement';
+import Statistics from '../components/statistics';
+import AddReimbursement from '../components/add-reimbursement';
 
 
 export default function RouteHandler(){
@@ -16,7 +19,8 @@ export default function RouteHandler(){
     const dispatch = useDispatch()
     const reimbursements = useSelector((state:AppState)=>state.reimbursements)
     const users = useSelector((state:AppState)=>state.users)
-    console.log(users)
+    const reimbursement = useSelector((state:AppState)=>state.reimbursement)
+    const user = useSelector((state:AppState)=>state.user)
 
     useEffect(()=>{
         userService.getAllUsers().then((response)=>{
@@ -38,7 +42,11 @@ export default function RouteHandler(){
 
             <Routes>
                 <Route path="login" element={<LoginComponent/>}/>
-                <Route path="reimbursements" element={<ReimbursementList reimbursements={reimbursements} users={users}/>}/>
+                {users.length > 0 && reimbursements.length > 0 ? <Route path="reimbursements" element={<ReimbursementList reimbursements={reimbursements} users={users}/>}/>:null}
+                <Route path="reimbursements/:id" element={<DetailReimbursement reimbursement={reimbursement} user={user}/>}/>
+                <Route path="statistics" element={<Statistics/>}/>
+                <Route path="reimbursements/add" element={<AddReimbursement user={user}/>}/>
+                <Route path="" element={<LoginComponent/>}/>
             </Routes>
             
         </BrowserRouter>

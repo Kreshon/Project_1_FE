@@ -6,16 +6,13 @@ import userService from "../service/user-service";
 import { getAllUsers } from "../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../store/store";
+import { useParams, useNavigate, Navigate } from 'react-router-dom'
 
 
-// To do
-// implement login func.
-// add session storage-Done for user
-// redirect to a reimbursement pages, based on permission level
-// stretch goals, add link to register, file upload for reimb
+
 export default function LoginComponent() {
 
-
+    const navigate = useNavigate()
     const usernameInput = useRef(null);
     const passwordInput = useRef(null);
 
@@ -34,6 +31,7 @@ export default function LoginComponent() {
         sessionStorage.setItem("id", user.id);
         sessionStorage.setItem("isManager",`${user.isManager}`);
 
+        navigate("/reimbursements")
     }
     
 

@@ -11,24 +11,21 @@ export default function NavBar(){
     }else{
         isManager = false;
     }
-    console.log(isManager)
-    console.log(isManager == true)
+
     function redirect(url: string){
         navigate(url) 
     }
 
-
-    // can decide later if I want the button option or the link option, probably button
     return(<>
     <span>
-        <Link to="login">Login</Link>
-        <Link to="reimbursements">Reimbursement List</Link>
-        <button onClick={()=>redirect("login")}>To Login</button>
+        <button onClick={()=>redirect("login")}>Login</button>
+        <button onClick={()=>redirect("reimbursements")}>Reimbursement List</button>
         {
             isManager === true ? 
-            <button onClick={()=>redirect("reimbursements")}>To Statistics</button> :
+            <button onClick={()=>redirect("statistics")}>Statistics</button> :
             null            
             }
+            {/* logout is going to be similar to the above code but based off of session sotrage, instead of null put a button for logout, look into sessionstorage.clear for onClick */}
     </span>
     </>)
 }
