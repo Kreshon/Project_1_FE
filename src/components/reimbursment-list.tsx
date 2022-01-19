@@ -3,6 +3,7 @@ import { Reimbursement } from "../entities/reimbursement";
 import { User } from "../entities/user";
 import { useTable } from "react-table";
 import { useParams, useNavigate } from 'react-router-dom'
+import { getAllReimbursements } from "../store/actions";
 
 interface ReimbursementListProps {
   reimbursements: Reimbursement[];
@@ -12,8 +13,16 @@ interface ReimbursementListProps {
 export default function ReimbursementList(props: ReimbursementListProps) {
   
   const navigate = useNavigate()
-  const reimbursements = props.reimbursements;
+  let reimbursements = props.reimbursements;
   const users = props.users;
+
+  /* const reimbursements = ( isManager ) ? 
+  don't filter the reimbursements : 
+  match userid with employeeid to filter the reimbursements */
+
+  // const reimbursements = (isManager) ?
+  // reimbursements :
+  // reimbursements.filter(users.id === employeeId)
 
   function combineUserToReimbursement(
     users: User[],
@@ -31,6 +40,7 @@ export default function ReimbursementList(props: ReimbursementListProps) {
     });
     return reimbursementList;
   }
+  
   let data: any = useMemo(
     () => combineUserToReimbursement(users, reimbursements),
     [reimbursements]
@@ -146,20 +156,7 @@ export default function ReimbursementList(props: ReimbursementListProps) {
     </>);
 }
 
-//     const reimbursementList = reimbursements.map(reimbursement => {
-//         const currentUser = users.find(user=>user.id===reimbursement.employeeId);
-//         return (<p>
-//         ID: {`${reimbursement.id} `}
-//         name: {`${currentUser.fname} ${currentUser.lname} `}
-//         employeeID: {`${reimbursement.employeeId} `}
-//         amount: {`${reimbursement.amount} `}
-//         status: {`${reimbursement.status} `}
-//         Employee comment: {`${reimbursement.commentEmployee} `}
-//         Manager comment: {`${reimbursement.commentManager} `}
-//         </p>)})
 
-//     return(<>
-//         <h1>Resimbursements</h1>
-//         {reimbursementList}
-//     </>)
-// }
+/*  when logging in check that the user logging in is either an employee or manager
+  from there you will want to track by the user id to then only display that users reimbursments
+  in the reimbursements list  */

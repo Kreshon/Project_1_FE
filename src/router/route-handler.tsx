@@ -45,7 +45,7 @@ export default function RouteHandler(){
                 {users.length > 0 && reimbursements.length > 0 ? <Route path="reimbursements" element={<ReimbursementList reimbursements={reimbursements} users={users}/>}/>:null}
                 <Route path="reimbursements/:id" element={<DetailReimbursement reimbursement={reimbursement} user={user}/>}/>
                 <Route path="statistics" element={<Statistics/>}/>
-                <Route path="reimbursements/add" element={<AddReimbursement user={user}/>}/>
+                <Route path="reimbursements/add" element={<AddReimbursement/>}/>
                 <Route path="" element={<LoginComponent/>}/>
             </Routes>
             

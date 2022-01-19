@@ -1,12 +1,12 @@
 Components
-    - complete statistics
+    - complete statistics guard against employees navigating to this page
 
 Processes
-    - separating emp. and man. after login
-    - creating reimbursement
-    - approving or denying
-    - Logout
+    - separating emp. and man. reimbursement lists after login
+    - approving or denying, if approved, approved button doesnt appear and viceversa, if approved or denied make buttons disappear
     - errors for service layer
+
+CSS DO THIS NO MATTER WHAT
 
 react native/expo stuff
     - dont forget the storage
@@ -17,3 +17,10 @@ react native/expo stuff
 
 ngrok
     - demo
+
+logging
+    - winston or bunyon
+
+Stretch
+    - guard navigation without login processing
+    - guard against reimbursement id in navigation

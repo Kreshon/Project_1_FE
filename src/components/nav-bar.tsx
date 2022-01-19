@@ -1,4 +1,8 @@
 import {Link, useNavigate} from 'react-router-dom'
+import { User } from "../entities/user";
+import { Reimbursement } from "../entities/reimbursement";
+
+
 
 export default function NavBar(){
 
@@ -12,20 +16,35 @@ export default function NavBar(){
         isManager = false;
     }
 
+    let id
+    if(sessionStorage.getItem("id")){id = sessionStorage.getItem("id")}
+
     function redirect(url: string){
         navigate(url) 
     }
 
+    function handleLogout(){
+        redirect("login");
+        sessionStorage.clear();
+    }
     return(<>
-    <span>
-        <button onClick={()=>redirect("login")}>Login</button>
-        <button onClick={()=>redirect("reimbursements")}>Reimbursement List</button>
+    <span>        
+        {
+            //this is doing id !== undefined but is truthy instead of falsy
+            id ?
+            <button onClick={handleLogout}>Logout</button> :
+            <button onClick={()=>redirect("login")}>Login</button> 
+        }
+        {
+            id ?
+            <button onClick={()=>redirect("reimbursements")}>Reimbursement List</button> :
+            null
+        }
         {
             isManager === true ? 
             <button onClick={()=>redirect("statistics")}>Statistics</button> :
             null            
             }
-            {/* logout is going to be similar to the above code but based off of session sotrage, instead of null put a button for logout, look into sessionstorage.clear for onClick */}
     </span>
     </>)
 }
