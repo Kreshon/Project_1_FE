@@ -5,7 +5,7 @@ import React,{ useState , useEffect, useRef } from "react";
 import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import userService from "../service/user-service";
-import { getUser, getReimbursement, updateReimbursement } from "../store/actions";
+import { getUser, getReimbursement, updateReimbursement, getAllReimbursements } from "../store/actions";
 
 
 
@@ -54,10 +54,26 @@ export default function DetailReimbursement(props: DetailReimbursementProps){
         updatedReimbursement.commentManager = commentManager;
 
         reimbursementService.updateReimbursement(updatedReimbursement).then((response)=>{
-            dispatch(updateReimbursement(response))})
+            reimbursementService.getAllReimbursements().then((response)=>{
+                dispatch(getAllReimbursements(response))})})
         
         navigate("../../reimbursements")
     }
+
+    function changeStatus(reviewedStatus){
+        const updatedReimbursement = {...reimbursement}
+        updatedReimbursement.status = reviewedStatus;
+        reimbursementService.updateReimbursement(updatedReimbursement).then((response)=>{
+            reimbursementService.getAllReimbursements().then((response)=>{
+                dispatch(getAllReimbursements(response))})})
+        
+        navigate("../../reimbursements")
+    }
+
+    // function test(x){
+    //     console.log(x)
+    // }
+    // test("lost")
 
     useEffect(()=>{
         userService.getUserById(reimbursement.employeeId).then((response)=>{
@@ -76,8 +92,10 @@ export default function DetailReimbursement(props: DetailReimbursementProps){
         <p>Status: {reimbursement.status}</p>
         <p>Employee Comment: <input onChange={handleCommentEmployee} type="text" id="Employee Comment" value={commentEmployee}/></p>
         <p>Manager Comment: <input onChange={handleCommentManager} type="text" id="Manager Comment" value={commentManager}/></p>
-        <button>Approve</button>
-        <button>Deny</button>
+        <button onClick={()=>changeStatus("Approved")}>Approve</button>
+        <button onClick={()=>changeStatus("Denied")}>Deny</button>
+        
+        
         <button onClick={saveChanges}>Save</button>
     </>)
 }

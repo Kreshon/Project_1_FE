@@ -2,8 +2,6 @@ Components
     - complete statistics guard against employees navigating to this page
 
 Processes
-    - separating emp. and man. reimbursement lists after login
-    - approving or denying, if approved, approved button doesnt appear and viceversa, if approved or denied make buttons disappear
     - errors for service layer
 
 CSS DO THIS NO MATTER WHAT
@@ -22,5 +20,11 @@ logging
     - winston or bunyon
 
 Stretch
+    - managers can only change thier comments, employees viceversa 
+    - guard against empty fields
     - guard navigation without login processing
     - guard against reimbursement id in navigation
+
+1/31/22
+    project due
+    Adam did say that he will be requiring us to implement even more features and tools into p1

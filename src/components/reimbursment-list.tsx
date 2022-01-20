@@ -13,16 +13,20 @@ interface ReimbursementListProps {
 export default function ReimbursementList(props: ReimbursementListProps) {
   
   const navigate = useNavigate()
-  let reimbursements = props.reimbursements;
   const users = props.users;
 
-  /* const reimbursements = ( isManager ) ? 
-  don't filter the reimbursements : 
-  match userid with employeeid to filter the reimbursements */
+  let isManager
+  if(sessionStorage.getItem("isManager")){isManager = sessionStorage.getItem("isManager")}
+  if(isManager === "true"){
+      isManager = true;
+  }else{
+      isManager = false;
+  }
 
-  // const reimbursements = (isManager) ?
-  // reimbursements :
-  // reimbursements.filter(users.id === employeeId)
+  const reimbursements = (isManager) ?
+  props.reimbursements :
+  props.reimbursements.filter(reimbursement => sessionStorage.getItem("id") === reimbursement.employeeId)
+  
 
   function combineUserToReimbursement(
     users: User[],
@@ -134,7 +138,7 @@ export default function ReimbursementList(props: ReimbursementListProps) {
                           }
                         </td>
                       );
-                    }else{console.log(cell)
+                    }else{
                       return (
                         <td {...cell.getCellProps()}>
                           <a href={`/reimbursements/${cell.value}`}>{
@@ -155,8 +159,3 @@ export default function ReimbursementList(props: ReimbursementListProps) {
     </table>
     </>);
 }
-
-
-/*  when logging in check that the user logging in is either an employee or manager
-  from there you will want to track by the user id to then only display that users reimbursments
-  in the reimbursements list  */
