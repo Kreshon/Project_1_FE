@@ -28,16 +28,16 @@ export default function ReimbursementList(props: ReimbursementListProps) {
   props.reimbursements.filter(reimbursement => sessionStorage.getItem("id") === reimbursement.employeeId)
   
 
-  function combineUserToReimbursement(
+  function combineUserToReimbursement(// adding employee names to the list of reimbs
     users: User[],
     reimbursements: Reimbursement[]
   ) {
-    let reimbursementList = [];
-    reimbursements.map((reimbursement) => {
-      const currentUser = users.find(
+    let reimbursementList = [];// 35 creating an empty aray called reimbursement list
+    reimbursements.map((reimbursement) => {// 36 goes through existing list of reimbs
+      const currentUser = users.find(// 37,38 finding the user that has an ID that matches the Employee ID on the current reimb
         (user) => user.id === reimbursement.employeeId
       );
-      reimbursementList.push({
+      reimbursementList.push({// 40,41,42, adds reimbs information and the name of the employee into the reimb array 
         ...reimbursement,
         name: `${currentUser.fname} ${currentUser.lname}`,
       });

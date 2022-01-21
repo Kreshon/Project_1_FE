@@ -28,3 +28,8 @@ Stretch
 1/31/22
     project due
     Adam did say that he will be requiring us to implement even more features and tools into p1
+
+Agile update
+    - statistics page shows id, name, totals
+    - still need to implement other stats 
+    - issue with "objects not valid as a react child, resolved with listing (sort of)
