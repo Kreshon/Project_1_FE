@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import LoginComponent from '../components/login-component'
 import NavBar from '../components/nav-bar';
-import ReimbursementList from '../components/reimbursment-list'
+import ReimbursementList from '../components/reimbursement-list'
 import userService from '../service/user-service';
 import { getAllUsers } from '../store/actions';
 import { AppState } from '../store/store';
