@@ -7,7 +7,7 @@ import { getAllUsers } from "../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../store/store";
 import { useParams, useNavigate, Navigate } from 'react-router-dom'
-
+import "../company-style.css"
 
 
 export default function LoginComponent() {
@@ -36,14 +36,16 @@ export default function LoginComponent() {
     
 
     return(<>
-        <h1>"Company" Login Page</h1>
+    <div id="loginDiv">
+        <h1 className="h1">"Company" Login Page</h1>
         <br/>
-        <label htmlFor="usernameInput">Username</label>
-        <input ref={usernameInput} type="text" id="usernameInput" />
-
-        <label htmlFor="passwordInput">Password</label>
-        <input ref={passwordInput} type="password" id="passwordInput" />
-
-        <button onClick={login}>Login</button>
+        <label className="label" htmlFor="usernameInput">Username: </label>
+        <input className="input" ref={usernameInput} type="text" id="usernameInput" />
+        <br/>
+        <label className="label" htmlFor="passwordInput">Password: </label>
+        <input className="input" ref={passwordInput} type="password" id="passwordInput" />
+        <br/><br/>
+        <button className="button" onClick={login}>Login</button>
+    </div>
     </>)
 }

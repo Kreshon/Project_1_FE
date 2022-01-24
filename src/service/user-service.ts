@@ -30,6 +30,7 @@ class UserService {
     }
 
     getUserById(userId: string): Promise<User> {
+        console.log(userId)
         return axios
             .get(this.URI + `users/${userId}`)
                 .then(result => result.data)

@@ -28,6 +28,7 @@ const reducer = (
     action:Actions.AppAction,
 ):AppState => {
     const newState={...state};
+    console.log(action)
     switch(action.type){
 
         case Actions.UserActions.GetAllUsers:

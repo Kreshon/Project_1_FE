@@ -6,7 +6,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import userService from "../service/user-service";
 import { getUser, getReimbursement, updateReimbursement, getAllReimbursements } from "../store/actions";
-
+import "../company-style.css"
 
 export default function AddReimbursement(){
 
@@ -43,10 +43,12 @@ export default function AddReimbursement(){
     }
 
     return(<>
-        <h1>Add Reimbursement here</h1>
-        <p>Amount: <input onChange={handleChangeAmount} type="text" id="Amount" value={amount}/></p>
-        <p>Employee Comment: <input onChange={handleCommentEmployee} type="text" id="Employee Comment" value={commentEmployee}/></p>
+    <div id="addDiv">
+        <h1 className="h1">Add Reimbursement here</h1>
+        <p className="p">Amount: <input className="input" onChange={handleChangeAmount} type="text" id="Amount" value={amount}/></p>
+        <p className="p">Employee Comment: <input className="input" onChange={handleCommentEmployee} type="text" id="Employee Comment" value={commentEmployee}/></p>
         <br/><br/>
-        <button onClick={saveReimbursement}>Save Reimbursement</button>
+        <button className="button" onClick={saveReimbursement}>Save Reimbursement</button>
+    </div>
     </>)
 }

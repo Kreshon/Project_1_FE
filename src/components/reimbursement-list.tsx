@@ -4,6 +4,7 @@ import { User } from "../entities/user";
 import { useTable } from "react-table";
 import { useParams, useNavigate } from 'react-router-dom'
 import { getAllReimbursements } from "../store/actions";
+import "../company-style.css"
 
 interface ReimbursementListProps {
   reimbursements: Reimbursement[];
@@ -91,9 +92,9 @@ export default function ReimbursementList(props: ReimbursementListProps) {
 
   return (<>
     <br/><br/><br/>
-    <button onClick={()=>navigate("add")}>Add Reimbursement</button>
+    <button className="button" onClick={()=>navigate("add")}>Add Reimbursement</button>
     <br/><br/>
-    <table {...getTableProps()}>
+    <table className="table" {...getTableProps()}>
       <thead>
         {
           // Loop over the header rows
@@ -104,7 +105,7 @@ export default function ReimbursementList(props: ReimbursementListProps) {
                 // Loop over the headers in each row
                 headerGroup.headers.map((column) => (
                   // Apply the header cell props
-                  <th {...column.getHeaderProps()}>
+                  <th className="tHead" {...column.getHeaderProps()}>
                     {
                       // Render the header
                       column.render("Header")
@@ -131,7 +132,7 @@ export default function ReimbursementList(props: ReimbursementListProps) {
                   row.cells.map((cell) => {
                     if(cell.column.id !== "id"){
                       return (
-                        <td {...cell.getCellProps()}>
+                        <td className="tData" {...cell.getCellProps()}>
                           {
                             // Render the cell contents
                             cell.render("Cell")
@@ -140,8 +141,8 @@ export default function ReimbursementList(props: ReimbursementListProps) {
                       );
                     }else{
                       return (
-                        <td {...cell.getCellProps()}>
-                          <a href={`/reimbursements/${cell.value}`}>{
+                        <td className="tData" {...cell.getCellProps()}>
+                          <a className="detailLink" href={`/reimbursements/${cell.value}`}>{
                             // Render the cell contents
                             cell.render("Cell")
                           }</a>

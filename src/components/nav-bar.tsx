@@ -1,7 +1,7 @@
 import {Link, useNavigate} from 'react-router-dom'
 import { User } from "../entities/user";
 import { Reimbursement } from "../entities/reimbursement";
-
+import "../company-style.css"
 
 
 export default function NavBar(){
@@ -28,21 +28,21 @@ export default function NavBar(){
         sessionStorage.clear();
     }
     return(<>
-    <span>        
+    <span className='nav'>        
         {
             //this is doing id !== undefined but is truthy instead of falsy
             id ?
-            <button onClick={handleLogout}>Logout</button> :
-            <button onClick={()=>redirect("login")}>Login</button> 
+            <button className="button" onClick={handleLogout}>Logout</button> :
+            <button className="button" onClick={()=>redirect("login")}>Login</button> 
         }
         {
             id ?
-            <button onClick={()=>redirect("reimbursements")}>Reimbursement List</button> :
+            <button className="button" onClick={()=>redirect("reimbursements")}>Reimbursement List</button> :
             null
         }
         {
             isManager === true ? 
-            <button onClick={()=>redirect("statistics")}>Statistics</button> :
+            <button className="button" onClick={()=>redirect("statistics")}>Statistics</button> :
             null            
             }
     </span>
