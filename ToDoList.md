@@ -30,13 +30,13 @@ Stretch
 1/31/22
     project due
     Adam did say that he will be requiring us to implement even more features and tools into p1
+    ***terminal ngrok http 4444 to bring up ngrok to then get the new temporary URL***
 
 Agile update
-    - statistics page done
-    - guarded managers and employees changing each others comments
-    - guard manager approving or denying their own reimbursment
-    - css rough draft for browser
-    - started native, got login page to show display, functionality not completed yet
+    - Completed native functionality
+    - Ngrok installed and running via tunnel
+    - Login credentials in store now (native), not session or local
+    - tested on browser, iphone 11 max pro, and pixel 6, all function
+    - starting looking into design for native
     
-    - Issues: detail reimb page was getting hung up and sending a payload of an array of reimbursements instead of user, 
-    wrapped use effect in an if statement to make sure it won't get the user array without an employee ID
+    - Issues: Navigation had issues with directing pages, naming routes is causing red, resolved kind of??? It works but it is mad
