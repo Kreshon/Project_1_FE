@@ -46,14 +46,14 @@ button:{
 // },
 
 loginDiv:{
-    position: "absolute",
-    width: 400,
-    height: 200,
-    zIndex: 15,
-    top: "50%",
-    left: "50%",
-    margin: "-100 0 0 -200",
-    textAlign: "center",
+    // position: "absolute",
+    // width: 400,
+    // height: 200,
+    // zIndex: 15,
+    // top: "50%",
+    // left: "50%",
+    // margin: "-100 0 0 -200",
+    // textAlign: "center",
 },
 
 addDiv:{
@@ -77,8 +77,8 @@ detailLink:{
 
 table:{
     //border: 2 "black",
-    color: "azure",
-    borderRadius: 5,
+    //color: "azure",
+    //borderRadius: 5,
 },
 
 tHead:{
@@ -90,16 +90,16 @@ tData:{
 },
 
 p:{
-    position: "relative",
-    color: "azure",
-    fontSize: "x-large",
-    //textShadow: 2 2 "black",
+    // position: "relative",
+    // color: "azure",
+    // fontSize: "x-large",
+    // textShadow: 2 2 "black",
 },
 
 nav:{
-    display: "flex",
-    justifyContent: "space-around",
-    textAlign: "center",
+    // display: "flex",
+    // justifyContent: "space-around",
+    // textAlign: "center",
 },
 
 })

@@ -2,31 +2,70 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import { Reimbursement } from "../entities/reimbursement";
 import { User } from "../entities/user";
 import { useTable } from "react-table";
-import { useParams, useNavigate } from 'react-router-dom'
-import { getAllReimbursements } from "../store/actions";
+import { useParams, useNavigate } from 'react-router-dom';
+import { getAllReimbursements, getAllUsers } from "../store/actions";
+import { TextInput, View, Text, Pressable, ScrollView } from "react-native";
+import styles from "../../company-style";
+import { useNavigation } from "@react-navigation/native";
+import { Card } from 'react-native-elements';
+import { FlatList } from 'react-native-gesture-handler';
+import reimbursementService from "../service/reimbursement-service";
+import { useDispatch, useSelector } from "react-redux";
+import userService from "../service/user-service";
+import { AppState } from "../store/store";
 
-interface ReimbursementListProps {
-  reimbursements: Reimbursement[];
-  users: User[];
-}
 
-export default function ReimbursementList(props: ReimbursementListProps) {
+
+export default function ReimbursementList() {
   
-  const navigate = useNavigate()
-  const users = props.users;
+  const dispatch = useDispatch()
+  const navigate = useNavigation()
+  const users = useSelector((state: AppState) => state.users);
+  const unfilteredReimbursements = useSelector((state: AppState) => state.reimbursements)
+  const loggedUser = useSelector((state: AppState) => state.loggedUser)
 
-  let isManager
-  if(sessionStorage.getItem("isManager")){isManager = sessionStorage.getItem("isManager")}
-  if(isManager === "true"){
-      isManager = true;
-  }else{
-      isManager = false;
+  useEffect(()=> {
+    reimbursementService.getAllReimbursements().then(response => dispatch(getAllReimbursements(response)))
+    userService.getAllUsers().then(response => dispatch(getAllUsers(response)))
+  },[])
+
+  const keyExtractor = (item: object, index: number) => {
+    return index.toString();
+  };
+
+  let reimbursements = []
+  console.log(unfilteredReimbursements)
+  if(unfilteredReimbursements && loggedUser){reimbursements = (loggedUser.isManager) ?
+  unfilteredReimbursements :
+  unfilteredReimbursements.filter(reimbursement => loggedUser.id === reimbursement.employeeId)}
+  
+  console.log(reimbursements)
+
+  function handleReimbursementSelect(index){
+    console.log(index)
+    navigate.navigate("Detail", {reimbursement:reimbursements[index], user:users[users.findIndex(user=>user.id === reimbursements[index].employeeId)],loggedUser:loggedUser})
   }
 
-  const reimbursements = (isManager) ?
-  props.reimbursements :
-  props.reimbursements.filter(reimbursement => sessionStorage.getItem("id") === reimbursement.employeeId)
-  
+  const reimbursementCard = (params: any) =>{
+    console.log(params)
+    return(
+      <Pressable onPress={()=>handleReimbursementSelect(params.index)}>
+        <Card>
+          <Text>
+            ID {params.item.id}
+          </Text>
+          <Text>
+            Name {params.item.name}
+          </Text>
+          <Text>
+            Amount {params.item.amount}
+          </Text>
+          <Text>
+            Status {params.item.status}
+          </Text>
+        </Card>
+      </Pressable>
+    )}
 
   function combineUserToReimbursement(// adding employee names to the list of reimbs
     users: User[],
@@ -44,118 +83,16 @@ export default function ReimbursementList(props: ReimbursementListProps) {
     });
     return reimbursementList;
   }
-  
-  let data: any = useMemo(
-    () => combineUserToReimbursement(users, reimbursements),
-    [reimbursements]
-  );
 
-  const columns = useMemo(
-    () => [
-      {
-        Header: "ID",
-        accessor: "id", // accessor is the "key" in the data
-      },
-      {
-        Header: "Name",
-        accessor: "name",
-      },
-      // {
-      //   Header: "Employee ID",
-      //   accessor: "employeeId",
-      // },
-      {
-        Header: "Amount",
-        accessor: "amount",
-      },
-      {
-        Header: "Status",
-        accessor: "status",
-      },
-      // {
-      //   Header: "Emp. Comment",
-      //   accessor: "commentEmployee",
-      // },
-      // {
-      //   Header: "Man. Comment",
-      //   accessor: "commentManager",
-      // },
-    ],
-    []
-  );
+  if(reimbursements && users){
+    reimbursements = combineUserToReimbursement(users, reimbursements)
+  }
 
-  const tableInstance = useTable({ columns, data });
-
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    tableInstance;
-
-  return (<>
-    <br/><br/><br/>
-    <button className="button" onClick={()=>navigate("add")}>Add Reimbursement</button>
-    <br/><br/>
-    <table className="table" {...getTableProps()}>
-      <thead>
-        {
-          // Loop over the header rows
-          headerGroups.map((headerGroup) => (
-            // Apply the header row props
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {
-                // Loop over the headers in each row
-                headerGroup.headers.map((column) => (
-                  // Apply the header cell props
-                  <th className="tHead" {...column.getHeaderProps()}>
-                    {
-                      // Render the header
-                      column.render("Header")
-                    }
-                  </th>
-                ))
-              }
-            </tr>
-          ))
-        }
-      </thead>
-      {/* Apply the table body props */}
-      <tbody {...getTableBodyProps()}>
-        {
-          // Loop over the table rows
-          rows.map((row) => {
-            // Prepare the row for display
-            prepareRow(row);
-            return (
-              // Apply the row props
-              <tr {...row.getRowProps()}>
-                {
-                  // Loop over the rows cells
-                  row.cells.map((cell) => {
-                    if(cell.column.id !== "id"){
-                      return (
-                        <td className="tData" {...cell.getCellProps()}>
-                          {
-                            // Render the cell contents
-                            cell.render("Cell")
-                          }
-                        </td>
-                      );
-                    }else{
-                      return (
-                        <td className="tData" {...cell.getCellProps()}>
-                          <a className="detailLink" href={`/reimbursements/${cell.value}`}>{
-                            // Render the cell contents
-                            cell.render("Cell")
-                          }</a>
-                        </td>
-                      );
-                    }
-                    // Apply the cell props
-                  })
-                }
-              </tr>
-            );
-          })
-        }
-      </tbody>
-    </table>
-    </>);
+  return (
+  <ScrollView>
+    {reimbursements ? <FlatList data={reimbursements}  renderItem={reimbursementCard} keyExtractor={keyExtractor}/> : <Text>Loading...</Text>}
+  </ScrollView>
+    );
 }
+
+

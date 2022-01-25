@@ -7,8 +7,10 @@ import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { ColorSchemeName, Pressable } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import Colors from '../../constants/Colors';
 import useColorScheme from '../../hooks/useColorScheme';
@@ -19,8 +21,11 @@ import TabTwoScreen from '../../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../../types';
 import DetailReimbursement from '../components/detail-reimbursement';
 import LoginComponent from '../components/login-component';
+import LogoutComponent from '../components/logout-component';
 import ReimbursementList from '../components/reimbursement-list';
+import { AppState } from '../store/store';
 import LinkingConfiguration from './LinkingConfiguration';
+
 
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
@@ -40,6 +45,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
  */
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+
 function RootNavigator() {
   return (
     <Stack.Navigator>
@@ -52,12 +58,12 @@ function RootNavigator() {
   );
 }
 
-const RSStack = createNativeStackNavigator()
+const RSStack = createStackNavigator()
 
 function ReimbursementStack(){
   return(<RSStack.Navigator>
-    <RSStack.Screen name="Reimbursement List" component={ReimbursementList}/>
-    <RSStack.Screen name="Reimbursement Detail" component={DetailReimbursement}/>
+    <RSStack.Screen name="List" component={ReimbursementList} options={{title:"Reimbursement List"}}/>
+    <RSStack.Screen name="Detail" component={DetailReimbursement} options={{title:"Reimbursement Details"}}/>
   </RSStack.Navigator>)
 }
 
@@ -69,19 +75,21 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();
-
+  const loggedUser = useSelector((state: AppState) => state.loggedUser);
+  
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Login"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}>
-      <BottomTab.Screen
-        name="TabOne"
+    {!loggedUser.id ?
+      <BottomTab.Screen 
+        name="Login"
         component={LoginComponent}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        options={({ navigation }: RootTabScreenProps<'Login'>) => ({
+          title: 'Login',
+          tabBarIcon: ({ color }) => <TabBarIcon name="fire-extinguisher" color={color} />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Modal')}
@@ -97,15 +105,24 @@ function BottomTabNavigator() {
             </Pressable>
           ),
         })}
-      />
-      {/* <BottomTab.Screen
-        name="TabTwo"
-        component={ReimbursementList}
+      /> : <BottomTab.Screen 
+            name="Logout"
+            component={LogoutComponent}
+            options={({ navigation }: RootTabScreenProps<'Logout'>) => ({
+              title: 'Logout',
+              tabBarIcon: ({ color }) => <TabBarIcon name="fire-extinguisher" color={color} />,
+            })}
+          />}
+    {loggedUser.id ?
+      <BottomTab.Screen
+        name="Reimbursement"
+        component={ReimbursementStack}
         options={{
-          title: 'Reimbursement List',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          headerShown:false,
+          title:"Reimbursement List",
+          tabBarIcon: ({ color }) => <TabBarIcon name="fire" color={color} />,
         }}
-      /> */}
+      /> : null}
     </BottomTab.Navigator>
   );
 }

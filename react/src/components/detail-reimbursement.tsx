@@ -19,7 +19,6 @@ export default function DetailReimbursement(props: DetailReimbursementProps){
     const {id} = useParams()
     const reimbursement = props.reimbursement;
     const user = props.user;
-    console.log(user)   
 
     const dispatch = useDispatch()
 

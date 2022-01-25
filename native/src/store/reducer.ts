@@ -20,6 +20,13 @@ const initialState:AppState ={
         status: "",
         commentEmployee: "",
         commentManager: "",
+    },
+    loggedUser: {fname: "",
+        lname: "",
+        id: "",
+        username: "",
+        password: "",
+        isManager: false,
     }
 }
 
@@ -49,6 +56,10 @@ const reducer = (
             return newState;
         case Actions.ReimbursementActions.UpdateReimbursement:
             newState.reimbursement=action.payload as Reimbursement;
+            return newState;
+
+        case Actions.UserActions.UpdateLoggedUser:
+            newState.loggedUser=action.payload as User;
             return newState;
 
         default: return state;

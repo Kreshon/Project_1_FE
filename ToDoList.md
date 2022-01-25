@@ -35,6 +35,8 @@ Agile update
     - statistics page done
     - guarded managers and employees changing each others comments
     - guard manager approving or denying their own reimbursment
-
+    - css rough draft for browser
+    - started native, got login page to show display, functionality not completed yet
+    
     - Issues: detail reimb page was getting hung up and sending a payload of an array of reimbursements instead of user, 
     wrapped use effect in an if statement to make sure it won't get the user array without an employee ID

@@ -6,33 +6,26 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import userService from "../service/user-service";
 import { getUser, getReimbursement, updateReimbursement, getAllReimbursements } from "../store/actions";
+import { TextInput, View, Text, Pressable } from "react-native";
+import styles from "../../company-style"
+import { useNavigation } from "@react-navigation/native";
+
 
 interface DetailReimbursementProps {
     reimbursement: Reimbursement;
     user: User;
 }
 
-export default function DetailReimbursement(props: DetailReimbursementProps){
-    const navigate = useNavigate()
+export default function DetailReimbursement(props){
+    console.log(props.route.params)
+    const navigate = useNavigation()
 
     const {id} = useParams()
-    const reimbursement = props.reimbursement;
-    const user = props.user;
+    const reimbursement = props.route.params.reimbursement;
+    const user = props.route.params.user;
     console.log(user)   
-
+    const loggedUser = props.route.params.loggedUser;
     const dispatch = useDispatch()
-
-    let isManager
-    if(sessionStorage.getItem("isManager")){isManager = sessionStorage.getItem("isManager")}
-    if(isManager === "true"){
-        isManager = true;
-    }else{
-        isManager = false;
-    }
-
-    let matchId
-    if(sessionStorage.getItem("id")){matchId = sessionStorage.getItem("id")}
-
     
     useEffect(()=>{
         if(id){
@@ -67,7 +60,7 @@ export default function DetailReimbursement(props: DetailReimbursementProps){
             reimbursementService.getAllReimbursements().then((response)=>{
                 dispatch(getAllReimbursements(response))})})
         
-        navigate("../../reimbursements")
+        navigate.goBack()
     }
 
     function changeStatus(reviewedStatus: string){
@@ -77,7 +70,7 @@ export default function DetailReimbursement(props: DetailReimbursementProps){
             reimbursementService.getAllReimbursements().then((response)=>{
                 dispatch(getAllReimbursements(response))})})
         
-        navigate("../../reimbursements")
+        navigate.goBack()
     }
 
     // function test(x){
@@ -95,32 +88,46 @@ export default function DetailReimbursement(props: DetailReimbursementProps){
     },[reimbursement])
 
     return(<>
-        <p className="p">ID: {reimbursement.id}</p>
-        <p className="p">NAME: {`${user.fname} ${user.lname}`}</p>
-        <p className="p">Employee ID: {reimbursement.employeeId}</p>
-        <p className="p">Amount: <input className="input" onChange={handleChangeAmount} type="text" id="Amount" value={amount}/></p>
-        <p className="p">Status: {reimbursement.status}</p>
+    <View>
+        <Text style={styles.p}>ID: {reimbursement.id}</Text>
+        <Text style={styles.p}>NAME: {`${user.fname} ${user.lname}`}</Text>
+        <Text style={styles.p}>Employee ID: {reimbursement.employeeId}</Text>
+        <View><Text style={styles.p}>Amount: </Text><TextInput style={styles.input} value={amount} onChangeText={(value)=>handleChangeAmount(value)}/></View>
+        <Text style={styles.p}>Status: {reimbursement.status}</Text>
 
         {
-        isManager === false ?
-        <p className="p">Employee Comment: <input className="input" onChange={handleCommentEmployee} type="text" id="Employee Comment" value={commentEmployee}/></p> :
-        <p className="p">Employee Comment: <input className="input" type="text" id="Employee Comment" value={commentEmployee}/></p>
+        loggedUser.isManager === false || loggedUser.id === reimbursement.employeeId ?
+        <View><Text style={styles.p}>Employee Comment: </Text><TextInput style={styles.input} onChangeText={(value)=>setCommentEmployee(value)} value={commentEmployee}/></View> :
+        <View><Text style={styles.p}>Employee Comment: </Text><TextInput style={styles.input} value={commentEmployee}/></View>
         }
 
         {
-        isManager === true ?
-        <p className="p">Manager Comment: <input className="input" onChange={handleCommentManager} type="text" id="Manager Comment" value={commentManager}/></p> :
-        <p className="p">Manager Comment: <input className="input" type="text" id="Manager Comment" value={commentManager}/></p>
+        loggedUser.isManager === true && loggedUser.id !== reimbursement.employeeId ?
+        <View><Text style={styles.p}>Manager Comment: </Text><TextInput style={styles.input} onChangeText={(value)=>setCommentManager(value)} value={commentManager}/></View> :
+        <View><Text style={styles.p}>Manager Comment: </Text><TextInput style={styles.input} value={commentManager}/></View>
         }
         {
         
-        isManager === true && matchId !== reimbursement.employeeId ?
+        loggedUser.isManager === true && loggedUser.id !== reimbursement.employeeId ?
         <>
-            <button className="button" onClick={()=>changeStatus("Approved")}>Approve</button>
-            <button className="button" onClick={()=>changeStatus("Denied")}>Deny</button> 
+            <Pressable style={styles.button} onPress={()=>changeStatus("Approved")}>
+                <Text>
+                    Approve
+                </Text>
+            </Pressable>
+            <Pressable style={styles.button} onPress={()=>changeStatus("Denied")}>
+                <Text>
+                    Deny
+                </Text>
+            </Pressable>
         </>:
             null
         }
-        <button className="button" onClick={saveChanges}>Save</button>
+        <Pressable style={styles.button} onPress={saveChanges}>
+            <Text>
+                Save
+            </Text>
+        </Pressable>
+    </View>
     </>)
 }

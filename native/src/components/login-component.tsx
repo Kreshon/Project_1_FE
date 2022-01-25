@@ -3,7 +3,7 @@ import { response } from "express";
 import React,{ useState , useEffect, useRef } from "react";
 import { User } from "../entities/user";
 import userService from "../service/user-service";
-import { getAllUsers } from "../store/actions";
+import { getAllUsers, updateLoggedUser } from "../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../store/store";
 import { useParams, useNavigate, Navigate } from 'react-router-dom'
@@ -14,25 +14,24 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function LoginComponent() {
 
+    const dispatch = useDispatch()
     const navigate = useNavigation()
     const [usernameInput, setUsernameInput] = useState("")
     const [passwordInput, setPasswordInput] = useState("")
 
     async function login(){
-
+        console.log(usernameInput)
+        console.log(passwordInput)
         if(usernameInput && passwordInput){const loginPayload = {
             username: usernameInput,
             password: passwordInput
         }
 
         const user = await userService.login(loginPayload)
+        console.log(user)
+        dispatch(updateLoggedUser(user))
 
-        // session storage typically stores things as strings
-        sessionStorage.setItem("username", user.username);
-        sessionStorage.setItem("id", user.id);
-        sessionStorage.setItem("isManager",`${user.isManager}`);
-
-        //navigate.navigate("/reimbursements")
+        navigate.navigate("Reimbursement")
     }}
     
 

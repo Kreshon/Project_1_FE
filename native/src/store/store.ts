@@ -5,13 +5,14 @@ import reducer from './reducer';
 
 
 export interface UserState{
-    users:User[];
-    user:User;
+    users: User[];
+    user: User;
+    loggedUser: User;
 }
 
 export interface ReimbursementState{
-    reimbursements:Reimbursement[];
-    reimbursement:Reimbursement;
+    reimbursements: Reimbursement[];
+    reimbursement: Reimbursement;
 }
 
 export interface AppState extends UserState,ReimbursementState{

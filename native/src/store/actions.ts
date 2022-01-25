@@ -4,7 +4,8 @@ import { Reimbursement } from '../entities/reimbursement'
 export enum UserActions{
     GetAllUsers="GET_ALL_USERS",
     GetUser="GET_USER",
-    UpdateUser="UPDATE_USER"
+    UpdateUser="UPDATE_USER",
+    UpdateLoggedUser="UPDATE_LOGGED_USER"
 }
 
 export enum ReimbursementActions{
@@ -72,6 +73,14 @@ export function updateReimbursement(reimbursement:Reimbursement):ReimbursementAc
     const action:ReimbursementAction={
         type:ReimbursementActions.UpdateReimbursement,
         payload:reimbursement,
+    }
+    return action;
+}
+
+export function updateLoggedUser(user:User):UserAction{
+    const action:UserAction={
+        type:UserActions.UpdateLoggedUser,
+        payload:user,
     }
     return action;
 }

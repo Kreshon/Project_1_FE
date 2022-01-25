@@ -5,7 +5,7 @@ class ReimbursementService {
 
     private URI: string;
     constructor (){
-        this.URI = 'http://localhost:4444/'
+        this.URI = "http://740f-2601-540-8200-a080-ec1c-ac84-4d29-fd09.ngrok.io/" //'http://localhost:4444/'
     }
 
     getAllReimbursements(): Promise<Reimbursement[]> {
