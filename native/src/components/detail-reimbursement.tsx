@@ -9,6 +9,7 @@ import { getUser, getReimbursement, updateReimbursement, getAllReimbursements } 
 import { TextInput, View, Text, Pressable } from "react-native";
 import styles from "../../company-style"
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 interface DetailReimbursementProps {
@@ -26,7 +27,21 @@ export default function DetailReimbursement(props){
     console.log(user)   
     const loggedUser = props.route.params.loggedUser;
     const dispatch = useDispatch()
-    
+
+
+    let isManager
+    if(AsyncStorage.getItem("isManager")){isManager = AsyncStorage.getItem("isManager")}
+    if(isManager === "true"){
+        isManager = true;
+    }else{
+        isManager = false;
+    }
+
+    let matchId
+    if(AsyncStorage.getItem("id")){matchId = AsyncStorage.getItem("id")}
+
+
+
     useEffect(()=>{
         if(id){
         reimbursementService.getReimbursementById(id).then((response)=>{

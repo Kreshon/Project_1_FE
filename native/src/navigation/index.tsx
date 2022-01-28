@@ -10,8 +10,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { ColorSchemeName, Pressable } from 'react-native';
-import { useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
 import Colors from '../../constants/Colors';
 import useColorScheme from '../../hooks/useColorScheme';
 import ModalScreen from '../../screens/ModalScreen';
@@ -25,16 +24,28 @@ import LogoutComponent from '../components/logout-component';
 import ReimbursementList from '../components/reimbursement-list';
 import { AppState } from '../store/store';
 import LinkingConfiguration from './LinkingConfiguration';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import userService from '../service/user-service';
+import { getAllUsers, getUser, updateLoggedUser } from '../store/actions';
+import { State } from 'react-native-gesture-handler';
+import { Routes } from 'react-router-dom';
 
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+  const dispatch = useDispatch()
+  const loggedUser = useSelector((state: AppState)=> state.loggedUser)
+  console.log(loggedUser)
+  React.useEffect(()=> {
+    if(AsyncStorage.getItem("id"))
+    {AsyncStorage.getItem("id").then(id => {if(id){userService.getUserById(id).then(user => {dispatch(updateLoggedUser(user))})}})}
+  },[])
+  const loggedUserContext = React.createContext(loggedUser)
   return (
   
     <NavigationContainer
       linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <RootNavigator />
+      <RootNavigator loggedUser={loggedUser}/>
     </NavigationContainer>
   );
 }
@@ -46,10 +57,10 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 
-function RootNavigator() {
+function RootNavigator(loggedUser) {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
+      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} initialParams={loggedUser}/>
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
@@ -75,14 +86,26 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();
-  const loggedUser = useSelector((state: AppState) => state.loggedUser);
+  const loggedUser = useSelector((state: AppState)=> state.loggedUser)
+
   
+  console.log(loggedUser)
   return (
     <BottomTab.Navigator
       initialRouteName="Login"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}>
+        {loggedUser.id ?
+      <BottomTab.Screen
+        name="Reimbursement"
+        component={ReimbursementStack}
+        options={{
+          headerShown:false,
+          title:"Reimbursement List",
+          tabBarIcon: ({ color }) => <TabBarIcon name="fire" color={color} />,
+        }}
+      /> : null}
     {!loggedUser.id ?
       <BottomTab.Screen 
         name="Login"
@@ -113,16 +136,7 @@ function BottomTabNavigator() {
               tabBarIcon: ({ color }) => <TabBarIcon name="fire-extinguisher" color={color} />,
             })}
           />}
-    {loggedUser.id ?
-      <BottomTab.Screen
-        name="Reimbursement"
-        component={ReimbursementStack}
-        options={{
-          headerShown:false,
-          title:"Reimbursement List",
-          tabBarIcon: ({ color }) => <TabBarIcon name="fire" color={color} />,
-        }}
-      /> : null}
+    
     </BottomTab.Navigator>
   );
 }
@@ -136,3 +150,5 @@ function TabBarIcon(props: {
 }) {
   return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
 }
+
+

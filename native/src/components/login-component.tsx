@@ -10,6 +10,7 @@ import { useParams, useNavigate, Navigate } from 'react-router-dom'
 import { TextInput, View, Text, Pressable } from "react-native";
 import styles from "../../company-style"
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function LoginComponent() {
@@ -27,12 +28,31 @@ export default function LoginComponent() {
             password: passwordInput
         }
 
+        // session storage typically stores things as strings
         const user = await userService.login(loginPayload)
-        console.log(user)
+        AsyncStorage.setItem("username", user.username);
+        AsyncStorage.setItem("id", user.id);
+        AsyncStorage.setItem("isManager",`${user.isManager}`);
+
+
+        // const user = await userService.login(loginPayload)
+        // console.log(user)
+        // AsyncStorage.setItem("employeeId", user.id)
         dispatch(updateLoggedUser(user))
 
         navigate.navigate("Reimbursement")
     }}
+
+    // React.useEffect(()=> {
+    //     const getLoggedUserId = async()=> 
+    //   {
+    //     const id = await AsyncStorage.getItem("employeeId")
+    //     console.log(id)
+    //     userService.getUserById(id).then((response)=> (dispatch(updateLoggedUser(response))))
+    //   }
+    //     getLoggedUserId()
+        
+    //   },[]);
     
 
     return(<>

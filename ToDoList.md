@@ -1,17 +1,10 @@
-Components
-    - complete statistics guard against employees navigating to this page
-
 Processes
     - errors for service layer
-    - if manager, you can only change employee comment on YOUR reimbursments
 
 CSS DO THIS NO MATTER WHAT
 
 react native/expo stuff
-    - dont forget the storage
-    - login
-    - reimbursment list
-    - approval/denial
+    - ASYNC STORAGE
 
 ngrok
     - demo
@@ -33,10 +26,10 @@ Stretch
     ***terminal ngrok http 4444 to bring up ngrok to then get the new temporary URL***
 
 Agile update
-    - Completed native functionality
-    - Ngrok installed and running via tunnel
-    - Login credentials in store now (native), not session or local
-    - tested on browser, iphone 11 max pro, and pixel 6, all function
-    - starting looking into design for native
+    - 
+    - 
+    - 
+    - 
+    - 
     
-    - Issues: Navigation had issues with directing pages, naming routes is causing red, resolved kind of??? It works but it is mad
+    - Issues: 

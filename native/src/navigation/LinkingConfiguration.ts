@@ -17,17 +17,18 @@ const linking: LinkingOptions<RootStackParamList> = {
         screens: {
           Login: {
             screens: {
-              TabOneScreen: 'one',
+              TabOneScreen: 'Login',
             },
           },
           Reimbursement: {
             screens: {
-              TabTwoScreen: 'two',
+              TabTwoScreen: 'List',
+              Detail: "Detail",
             },
           },
           Logout: {
             screens: {
-              TabOneScreen: 'three',
+              TabOneScreen: 'Logout',
             },
           },
         },

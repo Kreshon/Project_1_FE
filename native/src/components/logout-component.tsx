@@ -10,6 +10,7 @@ import { useParams, useNavigate, Navigate } from 'react-router-dom'
 import { TextInput, View, Text, Pressable } from "react-native";
 import styles from "../../company-style"
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LogoutComponent(){
 
@@ -27,6 +28,8 @@ export default function LogoutComponent(){
         isManager: false
     }))
 
+    AsyncStorage.clear()
+    
         navigate.navigate("Login")
 
     }

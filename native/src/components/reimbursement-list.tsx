@@ -3,7 +3,7 @@ import { Reimbursement } from "../entities/reimbursement";
 import { User } from "../entities/user";
 import { useTable } from "react-table";
 import { useParams, useNavigate } from 'react-router-dom';
-import { getAllReimbursements, getAllUsers } from "../store/actions";
+import { getAllReimbursements, getAllUsers, updateLoggedUser } from "../store/actions";
 import { TextInput, View, Text, Pressable, ScrollView } from "react-native";
 import styles from "../../company-style";
 import { useNavigation } from "@react-navigation/native";
@@ -13,16 +13,41 @@ import reimbursementService from "../service/reimbursement-service";
 import { useDispatch, useSelector } from "react-redux";
 import userService from "../service/user-service";
 import { AppState } from "../store/store";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+interface ReimbursementListProps {
+  reimbursements: Reimbursement[];
+  users: User[];
+}
 
-
-export default function ReimbursementList() {
+export default function ReimbursementList(props: ReimbursementListProps) {
   
   const dispatch = useDispatch()
   const navigate = useNavigation()
   const users = useSelector((state: AppState) => state.users);
   const unfilteredReimbursements = useSelector((state: AppState) => state.reimbursements)
   const loggedUser = useSelector((state: AppState) => state.loggedUser)
+  
+  const [userId, setUserId] = useState("");
+  (async ()=> (await AsyncStorage.getItem("id").then(response => setUserId(response))))()
+//   const getUserId = async ()=> {const returnId = await AsyncStorage.getItem("id")
+// return returnId}
+
+  const [isManagerString, setIsManagerString] = useState("");
+  const [isManager, setIsManager] = useState(false);
+  (async ()=> (await AsyncStorage.getItem("isManager").then(response => setIsManagerString(response))))();
+  // if(isManagerString === "true"){
+  //     setIsManager(true);
+  // }else{
+  //     setIsManager(false);
+  // }
+  (async()=> {console.log(await AsyncStorage.getItem("id"))})()
+  console.log(userId)
+  let reimbursements = (isManagerString === "true") ?
+  unfilteredReimbursements :
+  unfilteredReimbursements.filter(reimbursement =>  userId === reimbursement.employeeId)
+
+
 
   useEffect(()=> {
     reimbursementService.getAllReimbursements().then(response => dispatch(getAllReimbursements(response)))
@@ -33,11 +58,11 @@ export default function ReimbursementList() {
     return index.toString();
   };
 
-  let reimbursements = []
-  console.log(unfilteredReimbursements)
-  if(unfilteredReimbursements && loggedUser){reimbursements = (loggedUser.isManager) ?
-  unfilteredReimbursements :
-  unfilteredReimbursements.filter(reimbursement => loggedUser.id === reimbursement.employeeId)}
+  // let reimbursements = []
+  // console.log(unfilteredReimbursements)
+  // if(unfilteredReimbursements && loggedUser){reimbursements = (loggedUser.isManager) ?
+  // unfilteredReimbursements :
+  // unfilteredReimbursements.filter(reimbursement => loggedUser.id === reimbursement.employeeId)}
   
   console.log(reimbursements)
 

@@ -5,7 +5,7 @@ class UserService {
 
     private URI: string;
     constructor (){
-        this.URI = "http://740f-2601-540-8200-a080-ec1c-ac84-4d29-fd09.ngrok.io/" //'http://localhost:4444/'
+        this.URI = "http://e7e7-2601-540-8200-a080-955f-f2b5-dfa2-d5dd.ngrok.io/" //'http://localhost:4444/'
     }
 
     login(loginPayload): Promise<User> {
