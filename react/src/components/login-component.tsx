@@ -1,12 +1,6 @@
-import axios from "axios";
-import { response } from "express";
-import React,{ useState , useEffect, useRef } from "react";
-import { User } from "../entities/user";
+import { useRef } from "react";
 import userService from "../service/user-service";
-import { getAllUsers } from "../store/actions";
-import { useDispatch, useSelector } from "react-redux";
-import { AppState } from "../store/store";
-import { useParams, useNavigate, Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import "../company-style.css"
 
 

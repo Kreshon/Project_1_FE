@@ -1,9 +1,5 @@
-import React, { useState, useEffect, useRef, useImperativeHandle} from "react";
 import { Reimbursement } from "../entities/reimbursement";
 import { User } from "../entities/user";
-import { useTable } from "react-table";
-import { useParams, useNavigate } from 'react-router-dom'
-import { getAllReimbursements } from "../store/actions";
 import "../company-style.css"
 
 interface StatsReimbursementProps {

@@ -1,11 +1,9 @@
 import { Reimbursement } from "../entities/reimbursement";
-import { User } from "../entities/user";
 import reimbursementService from '../service/reimbursement-service';
-import React,{ useState , useEffect, useRef } from "react";
-import { useParams, useNavigate } from 'react-router-dom'
+import { useState } from "react";
+import { useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux";
-import userService from "../service/user-service";
-import { getUser, getReimbursement, updateReimbursement, getAllReimbursements } from "../store/actions";
+import { getAllReimbursements } from "../store/actions";
 import "../company-style.css"
 
 export default function AddReimbursement(){

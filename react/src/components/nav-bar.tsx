@@ -1,7 +1,5 @@
-import {Link, useNavigate} from 'react-router-dom'
-import { User } from "../entities/user";
-import { Reimbursement } from "../entities/reimbursement";
-import "../company-style.css"
+import { useNavigate } from 'react-router-dom';
+import "../company-style.css";
 
 
 export default function NavBar(){
