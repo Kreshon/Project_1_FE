@@ -33,7 +33,7 @@ export default function ReimbursementList(props: ReimbursementListProps) {
     reimbursements: Reimbursement[]
   ) {
     let reimbursementList = [];// 35 creating an empty aray called reimbursement list
-    reimbursements.map((reimbursement) => {// 36 goes through existing list of reimbs
+    reimbursements.forEach((reimbursement) => {// 36 goes through existing list of reimbs
       const currentUser = users.find(// 37,38 finding the user that has an ID that matches the Employee ID on the current reimb
         (user) => user.id === reimbursement.employeeId
       );
@@ -47,7 +47,7 @@ export default function ReimbursementList(props: ReimbursementListProps) {
   
   let data: any = useMemo(
     () => combineUserToReimbursement(users, reimbursements),
-    [reimbursements]
+    [reimbursements,users]
   );
 
   const columns = useMemo(

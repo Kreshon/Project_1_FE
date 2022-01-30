@@ -25,7 +25,7 @@ export default function Statistics(props: StatsReimbursementProps){
     function employeeSpendingTotal(){
         // get users, add amount totals of reimbursements, show totals based on employee ID and name
         let userIdentifiersList = []
-        users.map((user) => {
+        users.forEach((user) => {
             
             userIdentifiersList.push({
                 name: `${user.fname} ${user.lname}`,
@@ -35,7 +35,7 @@ export default function Statistics(props: StatsReimbursementProps){
             })
 
         })
-        reimbursements.map((reimbursement) => {
+        reimbursements.forEach((reimbursement) => {
         const index = userIdentifiersList.findIndex((user)=> reimbursement.employeeId === user.id)
             let addedTotal = Number(reimbursement.amount) + userIdentifiersList[index].amount;
             userIdentifiersList[index].amount = addedTotal
@@ -49,7 +49,7 @@ export default function Statistics(props: StatsReimbursementProps){
 
     function reimbursementCounter(){
         let reimbursementCounterList = []
-        users.map((user) => {
+        users.forEach((user) => {
             
             reimbursementCounterList.push({
                 name: `${user.fname} ${user.lname}`,
@@ -58,7 +58,7 @@ export default function Statistics(props: StatsReimbursementProps){
             })
 
         })
-        reimbursements.map((reimbursement) => {
+        reimbursements.forEach((reimbursement) => {
         const index = reimbursementCounterList.findIndex((user)=> reimbursement.employeeId === user.id)
             reimbursementCounterList[index].amount += 1;
         })
@@ -68,7 +68,7 @@ export default function Statistics(props: StatsReimbursementProps){
 
     const displayAmountTotals = employeeSpendingTotal()
 
-    const displayReimbursmentReqTotals = reimbursementCounter()
+    reimbursementCounter()
     
 
     return(<>

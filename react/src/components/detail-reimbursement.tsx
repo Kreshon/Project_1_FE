@@ -5,7 +5,7 @@ import { useState , useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import userService from "../service/user-service";
-import { getUser, getReimbursement, updateReimbursement, getAllReimbursements } from "../store/actions";
+import { getUser, getReimbursement, getAllReimbursements } from "../store/actions";
 import "../company-style.css"
 
 interface DetailReimbursementProps {
@@ -39,7 +39,7 @@ export default function DetailReimbursement(props: DetailReimbursementProps){
         reimbursementService.getReimbursementById(id).then((response)=>{
             dispatch(getReimbursement(response))
         })}
-    },[id])
+    },[id,dispatch])
 
     const [amount, setAmount] = useState(reimbursement.amount)
     const [commentEmployee, setCommentEmployee] = useState(reimbursement.commentEmployee)
@@ -80,10 +80,6 @@ export default function DetailReimbursement(props: DetailReimbursementProps){
         navigate("../../reimbursements")
     }
 
-    // function test(x){
-    //     console.log(x)
-    // }
-    // test("lost")
 
     useEffect(()=>{
         if(reimbursement.employeeId){userService.getUserById(reimbursement.employeeId).then((response)=>{
@@ -92,7 +88,7 @@ export default function DetailReimbursement(props: DetailReimbursementProps){
         setAmount(reimbursement.amount)
         setCommentEmployee(reimbursement.commentEmployee)
         setCommentManager(reimbursement.commentManager)}
-    },[reimbursement])
+    },[reimbursement,dispatch])
 
     return(<>
         <p className="p">ID: {reimbursement.id}</p>
