@@ -5,13 +5,14 @@ class UserService {
 
     private URI: string;
     constructor (){
-        this.URI = 'http://localhost:4444/'
+        this.URI = 'https://project1kreshon.azurewebsites.net/'
     }
-
+    
     login(loginPayload): Promise<User> {
+        console.log(loginPayload)
         return axios
             .patch(this.URI + `login`, loginPayload)
-                .then(result => result.data)
+                .then(result => { console.log(result);return result.data})
                     .catch(error => {console.log(error)});
     }
 

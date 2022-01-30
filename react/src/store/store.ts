@@ -1,4 +1,4 @@
-import { createSlice, createStore, PayloadAction } from "@reduxjs/toolkit";
+import { createStore } from "@reduxjs/toolkit";
 import { User } from '../entities/user'
 import { Reimbursement } from '../entities/reimbursement'
 import reducer from './reducer';

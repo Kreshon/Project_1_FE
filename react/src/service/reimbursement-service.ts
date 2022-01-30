@@ -5,7 +5,7 @@ class ReimbursementService {
 
     private URI: string;
     constructor (){
-        this.URI = 'http://localhost:4444/'
+        this.URI = 'https://project1kreshon.azurewebsites.net/'
     }
 
     getAllReimbursements(): Promise<Reimbursement[]> {
