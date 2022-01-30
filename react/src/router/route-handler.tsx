@@ -26,13 +26,13 @@ export default function RouteHandler(){
         userService.getAllUsers().then((response)=>{
             dispatch(getAllUsers(response))
         })
-    },[])  
+    },[dispatch])  
 
     useEffect(()=>{
         reimbursementService.getAllReimbursements().then((response)=>{
             dispatch(getAllReimbursements(response))
         })
-    },[])
+    },[dispatch])
 
 
     return(<>
