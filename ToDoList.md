@@ -1,16 +1,7 @@
 Processes
     - errors for service layer
-
-CSS DO THIS NO MATTER WHAT
-
-react native/expo stuff
-    - ASYNC STORAGE
-
-ngrok
-    - demo
-
-logging
-    - winston or bunyon
+    - azure app service to host
+    - logging
 
 Stretch
     - managers can only change thier comments, employees viceversa 
@@ -25,11 +16,3 @@ Stretch
     Adam did say that he will be requiring us to implement even more features and tools into p1
     ***terminal ngrok http 4444 to bring up ngrok to then get the new temporary URL***
 
-Agile update
-    - 
-    - 
-    - 
-    - 
-    - 
-    
-    - Issues: 

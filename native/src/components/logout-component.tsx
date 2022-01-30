@@ -35,12 +35,12 @@ export default function LogoutComponent(){
     }
 
     return(
-        <View>
+        <View style={styles.loginDiv}>
             <Text style={styles.h1}>
                 Do you wish to logout?
             </Text>
-            <Pressable style={styles.button} onPress={logout}>
-                <Text>
+            <Pressable onPress={logout}>
+                <Text style={styles.button}>
                     Logout
                 </Text>
             </Pressable>

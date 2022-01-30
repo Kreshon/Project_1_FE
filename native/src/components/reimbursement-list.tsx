@@ -30,23 +30,16 @@ export default function ReimbursementList(props: ReimbursementListProps) {
   
   const [userId, setUserId] = useState("");
   (async ()=> (await AsyncStorage.getItem("id").then(response => setUserId(response))))()
-//   const getUserId = async ()=> {const returnId = await AsyncStorage.getItem("id")
-// return returnId}
 
   const [isManagerString, setIsManagerString] = useState("");
   const [isManager, setIsManager] = useState(false);
   (async ()=> (await AsyncStorage.getItem("isManager").then(response => setIsManagerString(response))))();
-  // if(isManagerString === "true"){
-  //     setIsManager(true);
-  // }else{
-  //     setIsManager(false);
-  // }
+
   (async()=> {console.log(await AsyncStorage.getItem("id"))})()
   console.log(userId)
   let reimbursements = (isManagerString === "true") ?
   unfilteredReimbursements :
   unfilteredReimbursements.filter(reimbursement =>  userId === reimbursement.employeeId)
-
 
 
   useEffect(()=> {
@@ -58,12 +51,6 @@ export default function ReimbursementList(props: ReimbursementListProps) {
     return index.toString();
   };
 
-  // let reimbursements = []
-  // console.log(unfilteredReimbursements)
-  // if(unfilteredReimbursements && loggedUser){reimbursements = (loggedUser.isManager) ?
-  // unfilteredReimbursements :
-  // unfilteredReimbursements.filter(reimbursement => loggedUser.id === reimbursement.employeeId)}
-  
   console.log(reimbursements)
 
   function handleReimbursementSelect(index){
@@ -75,7 +62,7 @@ export default function ReimbursementList(props: ReimbursementListProps) {
     console.log(params)
     return(
       <Pressable onPress={()=>handleReimbursementSelect(params.index)}>
-        <Card>
+          <Card containerStyle={styles.cards}>
           <Text>
             ID {params.item.id}
           </Text>
@@ -115,7 +102,7 @@ export default function ReimbursementList(props: ReimbursementListProps) {
 
   return (
   <ScrollView>
-    {reimbursements ? <FlatList data={reimbursements}  renderItem={reimbursementCard} keyExtractor={keyExtractor}/> : <Text>Loading...</Text>}
+    {reimbursements ? <FlatList data={reimbursements} style={styles.list} renderItem={reimbursementCard} keyExtractor={keyExtractor}/> : <Text>Loading...</Text>}
   </ScrollView>
     );
 }

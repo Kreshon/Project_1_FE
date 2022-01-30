@@ -29,7 +29,10 @@ import userService from '../service/user-service';
 import { getAllUsers, getUser, updateLoggedUser } from '../store/actions';
 import { State } from 'react-native-gesture-handler';
 import { Routes } from 'react-router-dom';
+import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
+import styles from '../../company-style';
 
+const headerOptions = {headerStyle: styles.header, tabBarStyle: styles.tabBar}
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   const dispatch = useDispatch()
@@ -73,8 +76,8 @@ const RSStack = createStackNavigator()
 
 function ReimbursementStack(){
   return(<RSStack.Navigator>
-    <RSStack.Screen name="List" component={ReimbursementList} options={{title:"Reimbursement List"}}/>
-    <RSStack.Screen name="Detail" component={DetailReimbursement} options={{title:"Reimbursement Details"}}/>
+    <RSStack.Screen name="List" component={ReimbursementList} options={{title:"Reimbursement List", headerStyle: styles.header,}}/>
+    <RSStack.Screen name="Detail" component={DetailReimbursement} options={{title:"Reimbursement Details", headerStyle: styles.header,}}/>
   </RSStack.Navigator>)
 }
 
@@ -91,11 +94,9 @@ function BottomTabNavigator() {
   
   console.log(loggedUser)
   return (
-    <BottomTab.Navigator
+    <BottomTab.Navigator 
       initialRouteName="Login"
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
-      }}>
+      screenOptions={headerOptions}>
         {loggedUser.id ?
       <BottomTab.Screen
         name="Reimbursement"
@@ -104,6 +105,7 @@ function BottomTabNavigator() {
           headerShown:false,
           title:"Reimbursement List",
           tabBarIcon: ({ color }) => <TabBarIcon name="fire" color={color} />,
+          headerStyle: styles.header,
         }}
       /> : null}
     {!loggedUser.id ?
@@ -113,6 +115,7 @@ function BottomTabNavigator() {
         options={({ navigation }: RootTabScreenProps<'Login'>) => ({
           title: 'Login',
           tabBarIcon: ({ color }) => <TabBarIcon name="fire-extinguisher" color={color} />,
+          headerStyle: styles.header,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Modal')}
@@ -134,6 +137,7 @@ function BottomTabNavigator() {
             options={({ navigation }: RootTabScreenProps<'Logout'>) => ({
               title: 'Logout',
               tabBarIcon: ({ color }) => <TabBarIcon name="fire-extinguisher" color={color} />,
+              headerStyle: styles.header,
             })}
           />}
     

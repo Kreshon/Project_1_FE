@@ -40,8 +40,6 @@ export default function DetailReimbursement(props){
     let matchId
     if(AsyncStorage.getItem("id")){matchId = AsyncStorage.getItem("id")}
 
-
-
     useEffect(()=>{
         if(id){
         reimbursementService.getReimbursementById(id).then((response)=>{
@@ -103,43 +101,48 @@ export default function DetailReimbursement(props){
     },[reimbursement])
 
     return(<>
-    <View>
-        <Text style={styles.p}>ID: {reimbursement.id}</Text>
-        <Text style={styles.p}>NAME: {`${user.fname} ${user.lname}`}</Text>
-        <Text style={styles.p}>Employee ID: {reimbursement.employeeId}</Text>
-        <View><Text style={styles.p}>Amount: </Text><TextInput style={styles.input} value={amount} onChangeText={(value)=>handleChangeAmount(value)}/></View>
-        <Text style={styles.p}>Status: {reimbursement.status}</Text>
-
+    <View style={styles.detail}>
+        <Text style={styles.p}>Reimbursement ID: </Text>
+        <Text style={styles.p2}> {reimbursement.id}</Text>
+        <Text style={styles.p}>NAME: </Text>
+        <Text style={styles.p2}>{`${user.fname} ${user.lname}`}</Text>
+        <Text style={styles.p}>Employee ID: </Text>
+        <Text style={styles.p2}>{reimbursement.employeeId}</Text>
+        <Text style={styles.p}>Amount: </Text>
+        <TextInput style={styles.input} value={amount} onChangeText={(value)=>handleChangeAmount(value)}/>
+        <Text style={styles.p2}>Status: {reimbursement.status}</Text>
+        <Text style={styles.p}>Employee Comment: </Text>
+        
         {
         loggedUser.isManager === false || loggedUser.id === reimbursement.employeeId ?
-        <View><Text style={styles.p}>Employee Comment: </Text><TextInput style={styles.input} onChangeText={(value)=>setCommentEmployee(value)} value={commentEmployee}/></View> :
-        <View><Text style={styles.p}>Employee Comment: </Text><TextInput style={styles.input} value={commentEmployee}/></View>
+        <TextInput style={styles.input} onChangeText={(value)=>setCommentEmployee(value)} value={commentEmployee}/> :
+        <TextInput style={styles.input} value={commentEmployee}/>
         }
-
+        <Text style={styles.p}>Manager Comment: </Text>
         {
         loggedUser.isManager === true && loggedUser.id !== reimbursement.employeeId ?
-        <View><Text style={styles.p}>Manager Comment: </Text><TextInput style={styles.input} onChangeText={(value)=>setCommentManager(value)} value={commentManager}/></View> :
-        <View><Text style={styles.p}>Manager Comment: </Text><TextInput style={styles.input} value={commentManager}/></View>
+        <TextInput style={styles.input} onChangeText={(value)=>setCommentManager(value)} value={commentManager}/> :
+        <TextInput style={styles.input} value={commentManager}/>
         }
         {
         
         loggedUser.isManager === true && loggedUser.id !== reimbursement.employeeId ?
         <>
-            <Pressable style={styles.button} onPress={()=>changeStatus("Approved")}>
-                <Text>
+            <Pressable onPress={()=>changeStatus("Approved")}>
+                <Text style={styles.buttonA}>
                     Approve
                 </Text>
             </Pressable>
-            <Pressable style={styles.button} onPress={()=>changeStatus("Denied")}>
-                <Text>
+            <Pressable onPress={()=>changeStatus("Denied")}>
+                <Text style={styles.buttonB}>
                     Deny
                 </Text>
             </Pressable>
         </>:
             null
         }
-        <Pressable style={styles.button} onPress={saveChanges}>
-            <Text>
+        <Pressable onPress={saveChanges}>
+            <Text style={styles.button}>
                 Save
             </Text>
         </Pressable>

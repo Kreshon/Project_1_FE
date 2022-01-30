@@ -1,107 +1,173 @@
-import { StyleSheet } from 'react-native'
+import { wrap } from 'module'
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { FlipInEasyX } from 'react-native-reanimated'
+
 const styles = StyleSheet.create({
 
-input:{
-    //position: "relative",
-    // backgroundColor: "azure",
-    // fontFamily: "Arial, Helvetica, sansSerif",
-    // borderWidth: 5,
-    // borderRadius: 5,
-    // borderStyle: "hidden",
-    // lineHeight: 20,
+
+header:{
+    backgroundColor: "#A599B5",
 },
 
-h1:{
-    //position: "relative",
-    //color: "azure",
-    // fontSize: "xxLarge",
-    // fontFamily: "Arial, Helvetica, sansSerif",
-    //textShadow: 3 "black",
+tabBar:{
+    backgroundColor: "#A599B5",
+    
 },
 
-label:{
-    //position: "relative",
-    //color: "azure",
-    //fontSize: "xLarge",
-    //textShadow:2 2 "black",
+list:{
+    backgroundColor: "#051014",
 },
 
-button:{
-    //position: "relative",
-    //boxShadow: 2 2 "black",
-    fontWeight: "bold",
-    //color: "black",
-    backgroundColor: "azure",
-    borderRadius: 5,
+cards:{
+    backgroundColor: "#ACBDBA",
 },
 
-// button:hover{
-//     background-color: rgb(2, 2, 2),
-//     color: azure,
-//     border-radius: 5px,
-// },
-
-// body{
-//     backgroundColor: "grey",
-// },
-
-loginDiv:{
-    // position: "absolute",
-    // width: 400,
-    // height: 200,
-    // zIndex: 15,
-    // top: "50%",
-    // left: "50%",
-    // margin: "-100 0 0 -200",
-    // textAlign: "center",
+detail:{
+    backgroundColor: "#051014",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: 'center',
+    flexWrap: "wrap",
+    flex: 1,
 },
 
-addDiv:{
-    position: "absolute",
-    width: 400,
-    height: 200,
-    zIndex: 15,
-    top: "50%",
-    left: "50%",
-    margin: "-100 0 0 -200",
-},
-
-detailLink:{
-    color: "azure",
-    fontSize: 32,
-},
-
-// detailLink:hover{
-//     color: black,
-// },
-
-table:{
-    //border: 2 "black",
-    //color: "azure",
-    //borderRadius: 5,
-},
-
-tHead:{
-    textAlign: "center",
-},
-
-tData:{
-    textAlign: "center",
+lineItem:{
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: 'center',
+    flexWrap: "wrap",
+    flex: 1,
 },
 
 p:{
-    // position: "relative",
-    // color: "azure",
-    // fontSize: "x-large",
-    // textShadow: 2 2 "black",
+    display: 'flex',
+    backgroundColor: "#051014",
+    fontSize: 18,
+    color: "#ACBDBA",
+    
 },
 
-nav:{
-    // display: "flex",
-    // justifyContent: "space-around",
-    // textAlign: "center",
+p2:{
+    display: 'flex',
+    backgroundColor: "#051014",
+    fontSize: 18,
+    color: "#ACBDBA",
+    marginBottom: 5,
 },
 
+loginDiv:{
+    display: 'flex',
+    backgroundColor: "#051014",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: 'center',
+    flex: 1,
+    
+},
+
+h1:{
+    display: 'flex',
+    fontSize: 50,
+    color: "#CDDDDD",
+    textShadowColor: "#A599B5",
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 3,
+    textAlign: 'center',
+    justifyContent: "center",
+    alignContent: "center",
+
+},
+
+label:{
+    display: 'flex',
+    fontSize: 30,
+    color: "#CDDDDD",
+    textAlign: 'center',
+    justifyContent: "center",
+    alignContent: "center",
+},
+
+input:{
+    display: 'flex',
+    backgroundColor: "#ACBDBA",
+    width: 350,
+    height: 35,
+    alignContent: 'center',
+    borderRadius: 3,
+    justifyContent: 'center',
+    flexWrap: "wrap",
+    flexDirection: 'column',
+    alignSelf: 'center',
+    margin: 10,
+    
+},
+
+button:{
+    display: 'flex',
+    justifyContent: "center",
+    alignContent: "center",
+    alignSelf: 'center',
+    fontSize: 30,
+    color: "#2E2F2F",
+    borderRadius: 5,
+    borderWidth: 5,
+    borderStyle: "solid",
+    borderColor: "#ACBDBA",
+    padding: 10,
+    backgroundColor: "#CDDDDD",
+    margin: 10,
+},
+
+buttonA:{
+    display: 'flex',
+    justifyContent: "center",
+    alignContent: "center",
+    alignSelf: 'center',
+    fontSize: 30,
+    color: "#2E2F2F",
+    borderRadius: 5,
+    borderWidth: 5,
+    borderStyle: "solid",
+    borderColor: "#ACBDBA",
+    padding: 10,
+    backgroundColor: "#7DDF64",
+    margin: 10,
+},
+
+buttonB:{
+    display: 'flex',
+    justifyContent: "center",
+    alignContent: "center",
+    alignSelf: 'center',
+    fontSize: 30,
+    color: "#2E2F2F",
+    borderRadius: 5,
+    borderWidth: 5,
+    borderStyle: "solid",
+    borderColor: "#ACBDBA",
+    padding: 10,
+    backgroundColor: "#FF3E41",
+    margin: 10,
+},
+
+buttonL:{
+    display: 'flex',
+    justifyContent: "center",
+    alignContent: "center",
+    alignSelf: 'center',
+    fontSize: 30,
+    color: "#2E2F2F",
+    borderRadius: 5,
+    borderWidth: 5,
+    borderStyle: "solid",
+    borderColor: "#ACBDBA",
+    padding: 10,
+    backgroundColor: "#007CBE",
+    margin: 10,
+},
+
+    
 })
 
 export default styles
