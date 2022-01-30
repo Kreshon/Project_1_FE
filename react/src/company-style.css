@@ -1,46 +1,77 @@
 .input{
     position: relative;
-    background-color: azure;
+    background-color: #A599B5;
     font-family: Arial, Helvetica, sans-serif;
     border-width: 5px;
     border-radius: 5px;
     border-style: hidden;
-    line-height: 20px;
+    line-height: 25px;
+    
     
 }
 
 .h1{
     position: relative;
-    color: azure;
-    font-size: xx-large;
+    color: #CDDDDD;
+    font-size: 50px;
     font-family: Arial, Helvetica, sans-serif;
-    text-shadow: 3px 3px black;
+    text-shadow: 2px 2px #A599B5;
 }
 
 .label{
     position: relative;
-    color: azure;
-    font-size: x-large;
-    text-shadow:2px 2px black;
+    color: #CDDDDD;
+    font-size: 30px;
+    text-shadow:2px 2px #051014;
 }
 
 .button{
     position: relative;
-    box-shadow: 2px 2px black;
+    box-shadow: 2px 2px #051014;
     font-weight: bold;
-    color: black;
-    background-color: azure;
+    color: #051014;
+    background-color: #CDDDDD;
     border-radius: 5px;
 }
 
 .button:hover{
-    background-color: rgb(2, 2, 2);
-    color: azure;
+    background-color: #A599B5;
+    color: #051014;
+    border-radius: 5px;
+}
+
+.buttonA{
+    position: relative;
+    box-shadow: 2px 2px #051014;
+    font-weight: bold;
+    color: #051014;
+    background-color: #CDDDDD;
+    border-radius: 5px;
+}
+
+.buttonA:hover{
+    background-color: #7DDF64;
+    color: #051014;
+    border-radius: 5px;
+}
+
+.buttonB{
+    position: relative;
+    box-shadow: 2px 2px #051014;
+    font-weight: bold;
+    color: #051014;
+    background-color: #CDDDDD;
+    border-radius: 5px;
+}
+
+.buttonB:hover{
+    background-color: #FF3E41;
+    color: #051014;
     border-radius: 5px;
 }
 
 body{
-    background-color: rgb(66, 66, 66);
+    background-color: #051014;
 }
 
 #loginDiv{
@@ -70,11 +101,11 @@ body{
 }
 
 .detailLink:hover{
-    color: black;
+    color: #A599B5;
 }
 
 .table,.tHead,.tData{
-    border: 2px solid black;
+    border: 2px solid #A599B5;
     color: azure;
     border-radius: 5px;
 }

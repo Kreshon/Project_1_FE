@@ -116,8 +116,8 @@ export default function DetailReimbursement(props: DetailReimbursementProps){
         
         isManager === true && matchId !== reimbursement.employeeId ?
         <>
-            <button className="button" onClick={()=>changeStatus("Approved")}>Approve</button>
-            <button className="button" onClick={()=>changeStatus("Denied")}>Deny</button> 
+            <button className="buttonA" onClick={()=>changeStatus("Approved")}>Approve</button>
+            <button className="buttonB" onClick={()=>changeStatus("Denied")}>Deny</button> 
         </>:
             null
         }

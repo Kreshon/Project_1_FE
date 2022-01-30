@@ -37,7 +37,7 @@ export default function LoginComponent() {
 
     return(<>
     <div id="loginDiv">
-        <h1 className="h1">"Company" Login Page</h1>
+        <h1 className="h1">"PSN" Login Page</h1>
         <br/>
         <label className="label" htmlFor="usernameInput">Username: </label>
         <input className="input" ref={usernameInput} type="text" id="usernameInput" />
