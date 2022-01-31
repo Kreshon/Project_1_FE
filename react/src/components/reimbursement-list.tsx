@@ -89,6 +89,8 @@ export default function ReimbursementList(props: ReimbursementListProps) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
 
+  
+
   return (<>
     <br/><br/><br/>
     <button className="button" onClick={()=>navigate("add")}>Add Reimbursement</button>
@@ -141,10 +143,10 @@ export default function ReimbursementList(props: ReimbursementListProps) {
                     }else{
                       return (
                         <td className="tData" {...cell.getCellProps()}>
-                          <a className="detailLink" href={`/reimbursements/${cell.value}`}>{
+                          <button className="detailLink" onClick={()=>navigate(`/reimbursements/${cell.value}`)}>{cell.value}</button>{
                             // Render the cell contents
                             cell.render("Cell")
-                          }</a>
+                          }
                         </td>
                       );
                     }
