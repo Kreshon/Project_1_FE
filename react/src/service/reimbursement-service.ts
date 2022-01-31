@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Reimbursement } from '../entities/reimbursement'
 import winston from 'winston'
-import logConfig from '../../utils/logger'
+import logConfig from '../utils/logger'
 
 class ReimbursementService {
 

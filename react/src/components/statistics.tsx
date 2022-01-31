@@ -2,7 +2,7 @@ import { Reimbursement } from "../entities/reimbursement";
 import { User } from "../entities/user";
 import "../company-style.css"
 import winston from 'winston'
-import logConfig from '../../utils/logger'
+import logConfig from '../utils/logger'
 
 interface StatsReimbursementProps {
     reimbursements: Reimbursement[];

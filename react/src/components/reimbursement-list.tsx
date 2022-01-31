@@ -5,7 +5,7 @@ import { useTable } from "react-table";
 import { useNavigate } from 'react-router-dom';
 import "../company-style.css"
 import winston from 'winston'
-import logConfig from '../../utils/logger'
+import logConfig from '../utils/logger'
 
 interface ReimbursementListProps {
   reimbursements: Reimbursement[];

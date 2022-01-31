@@ -8,7 +8,7 @@ import userService from "../service/user-service";
 import { getUser, getReimbursement, getAllReimbursements } from "../store/actions";
 import "../company-style.css"
 import winston from 'winston'
-import logConfig from '../../utils/logger'
+import logConfig from '../utils/logger'
 
 interface DetailReimbursementProps {
     reimbursement: Reimbursement;

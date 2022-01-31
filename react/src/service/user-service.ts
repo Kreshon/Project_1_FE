@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { User } from '../entities/user'
 import winston from 'winston'
-import logConfig from '../../utils/logger'
+import logConfig from '../utils/logger'
 
 class UserService {
 
