@@ -143,7 +143,7 @@ export default function ReimbursementList(props: ReimbursementListProps) {
                     }else{
                       return (
                         <td className="tData" {...cell.getCellProps()}>
-                          <button className="detailLink" onClick={()=>navigate(`/reimbursements/${cell.value}`)}></button>{
+                          <button className="detailLink" onClick={()=>navigate(`/reimbursements/`)}>{cell.value}</button>{
                             // Render the cell contents
                             cell.render("Cell")
                           }

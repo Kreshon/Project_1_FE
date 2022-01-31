@@ -17,9 +17,7 @@ export default function LoginComponent() {
             password: passwordInput.current.value
         }
 
-        console.log(loginPayload)
         const user = await userService.login(loginPayload);
-        console.log(user)
         // session storage typically stores things as strings
         sessionStorage.setItem("username", user.username);
         sessionStorage.setItem("id", user.id);

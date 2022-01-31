@@ -9,7 +9,6 @@ class UserService {
     }
 
     login(loginPayload): Promise<User> {
-        console.log(loginPayload)
         return axios
             .patch(this.URI + `login`, loginPayload)
                 .then(result => result.data)
@@ -31,7 +30,6 @@ class UserService {
     }
 
     getUserById(userId: string): Promise<User> {
-        console.log(userId)
         return axios
             .get(this.URI + `users/${userId}`)
                 .then(result => result.data)

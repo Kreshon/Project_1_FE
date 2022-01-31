@@ -36,7 +36,6 @@ export default function ReimbursementList(props: ReimbursementListProps) {
   (async ()=> (await AsyncStorage.getItem("isManager").then(response => setIsManagerString(response))))();
 
   (async()=> {console.log(await AsyncStorage.getItem("id"))})()
-  console.log(userId)
   let reimbursements = (isManagerString === "true") ?
   unfilteredReimbursements :
   unfilteredReimbursements.filter(reimbursement =>  userId === reimbursement.employeeId)
@@ -51,15 +50,11 @@ export default function ReimbursementList(props: ReimbursementListProps) {
     return index.toString();
   };
 
-  console.log(reimbursements)
-
   function handleReimbursementSelect(index){
-    console.log(index)
     navigate.navigate("Detail", {reimbursement:reimbursements[index], user:users[users.findIndex(user=>user.id === reimbursements[index].employeeId)],loggedUser:loggedUser})
   }
 
   const reimbursementCard = (params: any) =>{
-    console.log(params)
     return(
       <Pressable onPress={()=>handleReimbursementSelect(params.index)}>
           <Card containerStyle={styles.cards}>

@@ -21,8 +21,6 @@ export default function LoginComponent() {
     const [modalVisible, setModalVisible] = useState(false)
 
     async function login(){
-        console.log(usernameInput)
-        console.log(passwordInput)
         if(usernameInput && passwordInput){const loginPayload = {
             username: usernameInput,
             password: passwordInput

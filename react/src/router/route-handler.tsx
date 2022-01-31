@@ -21,7 +21,6 @@ export default function RouteHandler(){
     const users = useSelector((state:AppState)=>state.users)
     const reimbursement = useSelector((state:AppState)=>state.reimbursement)
     const user = useSelector((state:AppState)=>state.user)
-    console.log(user)
     useEffect(()=>{
         userService.getAllUsers().then((response)=>{
             dispatch(getAllUsers(response))

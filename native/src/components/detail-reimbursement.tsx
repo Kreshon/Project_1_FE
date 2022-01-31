@@ -18,13 +18,11 @@ interface DetailReimbursementProps {
 }
 
 export default function DetailReimbursement(props){
-    console.log(props.route.params)
     const navigate = useNavigation()
 
     const {id} = useParams()
     const reimbursement = props.route.params.reimbursement;
     const user = props.route.params.user;
-    console.log(user)   
     const loggedUser = props.route.params.loggedUser;
     const dispatch = useDispatch()
 
@@ -85,11 +83,6 @@ export default function DetailReimbursement(props){
         
         navigate.goBack()
     }
-
-    // function test(x){
-    //     console.log(x)
-    // }
-    // test("lost")
 
     useEffect(()=>{
         if(reimbursement.employeeId){userService.getUserById(reimbursement.employeeId).then((response)=>{

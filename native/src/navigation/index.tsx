@@ -37,7 +37,6 @@ const headerOptions = {headerStyle: styles.header, tabBarStyle: styles.tabBar}
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   const dispatch = useDispatch()
   const loggedUser = useSelector((state: AppState)=> state.loggedUser)
-  console.log(loggedUser)
   React.useEffect(()=> {
     if(AsyncStorage.getItem("id"))
     {AsyncStorage.getItem("id").then(id => {if(id){userService.getUserById(id).then(user => {dispatch(updateLoggedUser(user))})}})}
@@ -91,8 +90,6 @@ function BottomTabNavigator() {
   const colorScheme = useColorScheme();
   const loggedUser = useSelector((state: AppState)=> state.loggedUser)
 
-  
-  console.log(loggedUser)
   return (
     <BottomTab.Navigator 
       initialRouteName="Login"
