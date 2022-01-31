@@ -1,7 +1,4 @@
-import { wrap } from 'module'
-import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { FlipInEasyX } from 'react-native-reanimated'
 
 const styles = StyleSheet.create({
 
