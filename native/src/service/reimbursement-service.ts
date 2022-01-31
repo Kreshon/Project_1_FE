@@ -5,7 +5,7 @@ class ReimbursementService {
 
     private URI: string;
     constructor (){
-        this.URI = "https://project1kreshon.azurewebsites.net/" //DONT FORGET SLASH AT THE END OF NGROK //'http://localhost:4444/'
+        this.URI = "https://project1kreshon.azurewebsites.net/" //'http://localhost:4444/'
     }
 
     getAllReimbursements(): Promise<Reimbursement[]> {

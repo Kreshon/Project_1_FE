@@ -2,14 +2,15 @@ import { useRef } from "react";
 import userService from "../service/user-service";
 import { useNavigate } from 'react-router-dom'
 import "../company-style.css"
-
+import winston from 'winston'
+import logConfig from '../../utils/logger'
 
 export default function LoginComponent() {
 
     const navigate = useNavigate()
     const usernameInput = useRef(null);
     const passwordInput = useRef(null);
-
+    const logger = winston.createLogger(logConfig);
     async function login(){
 
         const loginPayload = {
@@ -22,7 +23,7 @@ export default function LoginComponent() {
         sessionStorage.setItem("username", user.username);
         sessionStorage.setItem("id", user.id);
         sessionStorage.setItem("isManager",`${user.isManager}`);
-
+        logger.info("Logged in")
         navigate("/reimbursements")
     }
     

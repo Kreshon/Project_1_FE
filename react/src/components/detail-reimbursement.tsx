@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import userService from "../service/user-service";
 import { getUser, getReimbursement, getAllReimbursements } from "../store/actions";
 import "../company-style.css"
+import winston from 'winston'
+import logConfig from '../../utils/logger'
 
 interface DetailReimbursementProps {
     reimbursement: Reimbursement;
@@ -19,7 +21,7 @@ export default function DetailReimbursement(props: DetailReimbursementProps){
     const {id} = useParams()
     const reimbursement = props.reimbursement;
     const user = props.user;
-
+    const logger = winston.createLogger(logConfig);
     const dispatch = useDispatch()
 
     let isManager
@@ -66,7 +68,7 @@ export default function DetailReimbursement(props: DetailReimbursementProps){
         reimbursementService.updateReimbursement(updatedReimbursement).then((response)=>{
             reimbursementService.getAllReimbursements().then((response)=>{
                 dispatch(getAllReimbursements(response))})})
-        
+                    logger.info("Saved reimbursement changes")
         navigate("../../reimbursements")
     }
 
@@ -76,7 +78,7 @@ export default function DetailReimbursement(props: DetailReimbursementProps){
         reimbursementService.updateReimbursement(updatedReimbursement).then((response)=>{
             reimbursementService.getAllReimbursements().then((response)=>{
                 dispatch(getAllReimbursements(response))})})
-        
+                logger.info("Reimbursement status changed")
         navigate("../../reimbursements")
     }
 

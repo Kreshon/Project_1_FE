@@ -4,6 +4,8 @@ import { User } from "../entities/user";
 import { useTable } from "react-table";
 import { useNavigate } from 'react-router-dom';
 import "../company-style.css"
+import winston from 'winston'
+import logConfig from '../../utils/logger'
 
 interface ReimbursementListProps {
   reimbursements: Reimbursement[];
@@ -14,6 +16,7 @@ export default function ReimbursementList(props: ReimbursementListProps) {
   
   const navigate = useNavigate()
   const users = props.users;
+  const logger = winston.createLogger(logConfig);
 
   let isManager
   if(sessionStorage.getItem("isManager")){isManager = sessionStorage.getItem("isManager")}
@@ -40,7 +43,7 @@ export default function ReimbursementList(props: ReimbursementListProps) {
       reimbursementList.push({// 40,41,42, adds reimbs information and the name of the employee into the reimb array 
         ...reimbursement,
         name: `${currentUser.fname} ${currentUser.lname}`,
-      });
+      });logger.info("Matched user to reimbursement on list")
     });
     return reimbursementList;
   }
