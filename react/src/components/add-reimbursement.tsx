@@ -5,8 +5,6 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import { getAllReimbursements } from "../store/actions";
 import "../company-style.css"
-import winston from 'winston'
-import logConfig from '../utils/logger'
 
 export default function AddReimbursement(){
 
@@ -14,7 +12,7 @@ export default function AddReimbursement(){
     const navigate = useNavigate()
     const [amount, setAmount] = useState()
     const [commentEmployee, setCommentEmployee] = useState()
-    const logger = winston.createLogger(logConfig);
+
     const dispatch = useDispatch()
 
     function handleChangeAmount(event: any){
@@ -38,7 +36,7 @@ export default function AddReimbursement(){
         reimbursementService.createReimbursement(newReimbursement).then((response)=>{
             reimbursementService.getAllReimbursements().then((response)=>{
                 dispatch(getAllReimbursements(response))})})
-                    logger.info("Reimbursement saved")
+        
         navigate("../../reimbursements")
     }
 

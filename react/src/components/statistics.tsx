@@ -1,8 +1,6 @@
 import { Reimbursement } from "../entities/reimbursement";
 import { User } from "../entities/user";
 import "../company-style.css"
-import winston from 'winston'
-import logConfig from '../utils/logger'
 
 interface StatsReimbursementProps {
     reimbursements: Reimbursement[];
@@ -15,7 +13,6 @@ export default function Statistics(props: StatsReimbursementProps){
 
     const users = props.users;
     const reimbursements = props.reimbursements;
-    const logger = winston.createLogger(logConfig);
 
     let isManager
     if(sessionStorage.getItem("isManager")){isManager = sessionStorage.getItem("isManager")}
@@ -44,7 +41,7 @@ export default function Statistics(props: StatsReimbursementProps){
             userIdentifiersList[index].amount = addedTotal
             // userIdentifiersList[index].amount += reimbursement.amount
             userIdentifiersList[index].count += 1;
-        }); logger.info("Manager seeking spending totals")
+        })
 
         return userIdentifiersList;
         
@@ -64,7 +61,7 @@ export default function Statistics(props: StatsReimbursementProps){
         reimbursements.forEach((reimbursement) => {
         const index = reimbursementCounterList.findIndex((user)=> reimbursement.employeeId === user.id)
             reimbursementCounterList[index].amount += 1;
-        }); logger.info("Manager seeking reimbursement totals")
+        })
 
         return reimbursementCounterList;
     }
