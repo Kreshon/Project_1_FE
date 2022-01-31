@@ -53,7 +53,7 @@ p2:{
     backgroundColor: "#051014",
     fontSize: 18,
     color: "#ACBDBA",
-    marginBottom: 5,
+    marginBottom: 3,
 },
 
 loginDiv:{
@@ -99,7 +99,7 @@ input:{
     flexWrap: "wrap",
     flexDirection: 'column',
     alignSelf: 'center',
-    margin: 10,
+    margin: 3,
     
 },
 
